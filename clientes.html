@@ -1,0 +1,71 @@
+{% extends 'plantilla.html' %}
+
+{% block content %}
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success">{{ message }}</div>
+
+    {% endfor %}
+  {% endif %}
+
+  <<h2 class="text-center">Clientes</h2>
+
+
+  <form class="w-50 shadow mx-auto p-4 m-3"  method="post" action="{% url 'guardar' %}">
+      {% csrf_token %}
+    Nombre: <input type="text" name="nombre" class="form-control my-2" required>
+    Correo Electronico: <input type="text" name="correo" class="form-control my-2" required>
+    Dirección: <input type="text" name="direccion" class="form-control my-2" required>
+    Edad: <input type="text" name="edad" class="form-control my-2" required>
+    Sexo: <input type="text" name="sexo" class="form-control my-2" required>
+    País: <input type="text" name="pais" class="form-control my-2" required>
+    Ciudad: <input type="text" name="ciudad" class="form-control my-2" required>
+    <input type="submit" name="Guardar" value="Guardar" class="btn btn-primary">
+  </form>
+
+  <table class="table table-ligh w-75 mx-auto text-center">
+    <tr class="table-dark">
+      <th>nombre</th>
+      <th>contraseña</th>
+      <th>correo</th>
+      <th>direccion</th>
+      <th>edad</th>
+      <th>sexo</th>
+      <th>pais</th>
+      <th>ciudad</th>
+      <<th colspan="2"> </th>
+    </tr>
+
+  {% for cliente in clientes %}
+  <tr>
+    <td>{{ cliente.nombre }}</td>
+    <td>{{ cliente.contraseña }}</td>
+    <td>{{ cliente.correo }}</td>
+    <td>{{ cliente.direccion }}</td>
+    <td>{{ cliente.edad }}</td>
+    <td>{{ cliente.sexo }}</td>
+    <td>{{ cliente.pais }}</td>
+    <td>{{ cliente.ciudad }}</td>
+    <td>
+      <form action="{% url 'eliminar' cliente.id %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger" onclick="return confirm('¿Desea eliminar a este cliente?')">
+          <i class="fa fa-trash"></i>
+        </button>
+      </form>
+    </td>
+    <td>
+      <form action="{% url 'detalle' cliente.id %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-warning" onclick="return confirm('¿Desea editar a este cliente?')">
+          <i class="fa fa-edit"></i>
+        </button>
+      </form>
+    </td>
+  </tr>
+
+
+  {% endfor %}
+  </table>
+{% endblock %}

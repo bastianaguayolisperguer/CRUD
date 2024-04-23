@@ -1,0 +1,19 @@
+
+{% extends 'plantilla.html' %}
+
+{% block content %}
+    <h2 class="text-center">Clientes</h2>
+
+    <form class="w-50 shadow mx-auto p-4 m-3" method="post" action="{% url 'editar' cliente.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ cliente.id }}">
+        Nombre: <input type="text" name="nombre" class="form-control my-2" required value="{{ cliente.nombre }}">
+        Correo Electrónico: <input type="text" name="correo" class="form-control my-2" required value="{{ cliente.correo }}">
+        Dirección: <input type="text" name="direccion" class="form-control my-2" required value="{{ cliente.direccion }}">
+        Edad: <input type="text" name="edad" class="form-control my-2" required value="{{ cliente.edad }}">
+        Sexo: <input type="text" name="sexo" class="form-control my-2" required value="{{ cliente.sexo }}">
+        País: <input type="text" name="pais" class="form-control my-2" required value="{{ cliente.pais }}">
+        Ciudad: <input type="text" name="ciudad" class="form-control my-2" required value="{{ cliente.ciudad }}">
+        <input type="submit" name="Actualizar" value="Guardar" class="btn btn-warning">
+    </form>
+{% endblock %}
